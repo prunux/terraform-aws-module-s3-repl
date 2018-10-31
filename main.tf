@@ -1,7 +1,15 @@
+provider "aws" {
+  alias = "src"
+}
+
+provider "aws" {
+  alias = "dest"
+}
+
 resource "aws_s3_bucket" "s3-bucket" {
   bucket        = "${var.bucket_name}"
   region        = "${var.bucket_region}"
-  provider      = "aws.bucket_provider"
+  provider      = "aws.src"
   acl           = "private"
   force_destroy = "${var.bucket_force_destroy}"
 
@@ -47,7 +55,7 @@ resource "aws_s3_bucket" "s3-bucket" {
 }
 
 resource "aws_s3_bucket" "repl-s3-bucket" {
-  provider      = "aws.repl_bucket_provider"
+  provider      = "aws.dest"
   bucket        = "${var.repl_bucket_name}"
   acl           = "private"
   force_destroy = "${var.repl_bucket_force_destroy}"
