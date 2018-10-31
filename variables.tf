@@ -9,6 +9,11 @@ variable "bucket_region" {
   description = "AWS region of the S3"
 }
 
+variable "bucket_provider" {
+  type        = "string"
+  description = "AWS provider of region"
+}
+
 variable "bucket_storage_class" {
   type        = "string"
   description = "storage class for S3 bucket"
@@ -42,6 +47,11 @@ variable "repl_bucket_name" {
 variable "repl_bucket_region" {
   type        = "string"
   description = "AWS region of the S3 replica"
+}
+
+variable "repl_bucket_provider" {
+  type        = "string"
+  description = "AWS provider of region replica"
 }
 
 variable "repl_bucket_storage_class" {

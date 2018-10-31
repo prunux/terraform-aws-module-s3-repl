@@ -1,6 +1,7 @@
 resource "aws_s3_bucket" "s3-bucket" {
   bucket        = "${var.bucket_name}"
   region        = "${var.bucket_region}"
+  provider      = "${var.bucket_provider}"
   acl           = "private"
   force_destroy = "${var.bucket_force_destroy}"
 
@@ -45,15 +46,8 @@ resource "aws_s3_bucket" "s3-bucket" {
   tags = "${merge(map("Name", var.bucket_name), var.extra_tags)}"
 }
 
-provider "aws" {
-  region     = "${var.repl_bucket_region}"
-  alias      = "s3-replication-region"
-  access_key = "${var.access_key}"
-  secret_key = "${var.secret_key}"
-}
-
 resource "aws_s3_bucket" "repl-s3-bucket" {
-  provider      = "aws.s3-replication-region"
+  provider      = "${var.repl_bucket_provider}"
   bucket        = "${var.repl_bucket_name}"
   acl           = "private"
   force_destroy = "${var.repl_bucket_force_destroy}"
