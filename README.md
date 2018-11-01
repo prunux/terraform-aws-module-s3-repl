@@ -96,3 +96,32 @@ $ terraform output -module=s3-repl
 s3-bucket-prod_key_id = AKIAJUO6HXXXXXXX
 s3-bucket-prod_secret_key = 9kOFcvujIlWcXXXXXXXgVDOxV8gPhiO31Hb8
 ```
+
+## Lifecyle
+
+The following lifecycle is activated
+
+```terraform
+ lifecycle_rule {
+    prefix  = ""
+    enabled = true
+
+    noncurrent_version_expiration {
+      days = 30
+    }
+  }
+```
+
+## Encryption
+
+All create S3 Buckets are using the AWS-KMS encryption
+
+```terraform
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "aws:kms"
+      }
+    }
+  }
+```
