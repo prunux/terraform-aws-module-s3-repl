@@ -33,6 +33,37 @@ variable "bucket_force_destroy" {
   default     = false
 }
 
+### S3 Bucket Cors ###
+# see also https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html
+variable "cors_allowed_headers" {
+  type        = "list"
+  description = "The AllowedHeader element specifies which headers are allowed in a preflight request through the Access-Control-Request-Headers header. Each AllowedHeader string in the rule can contain at most one * wildcard character"
+  default     = []
+}
+
+variable "cors_allowed_methods" {
+  type        = "list"
+  description = "AllowedMethods Element: 1-n out of 'GET','PUT','POST','DELETE','HEAD'"
+  default     = []
+}
+
+variable "cors_allowed_origins" {
+  type        = "list"
+  description = "AllowedOrigin Element (i.e. You can optionally specify * as the origin to enable all the origins to send cross-origin requests)"
+  default     = []
+}
+
+variable "cors_expose_headers" {
+  type        = "list"
+  description = "Each ExposeHeader element identifies a header in the response that you want customers to be able to access from their applications (for example, from a JavaScript XMLHttpRequest object)."
+  default     = []
+}
+
+variable "cors_max_age_seconds" {
+  description = "The MaxAgeSeconds element specifies the time in seconds that your browser can cache the response for a preflight request as identified by the resource, the HTTP method, and the origin."
+  default     = 3000
+}
+
 ### S3 Replication Bucket ####
 variable "repl_bucket_name" {
   type        = "string"
