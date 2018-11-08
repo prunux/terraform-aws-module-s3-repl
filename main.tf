@@ -8,13 +8,11 @@ provider "aws" {
 
 locals {
   has_bucket_cors = "${length(var.cors_allowed_methods) >= 1 ? true : false }"
-
-  allowed_headers = "${local.has_bucket_cors ? var.cors_allowed_headers : []}"
-  allowed_methods = "${local.has_bucket_cors ? var.cors_allowed_methods : []}"
-  allowed_origins = "${local.has_bucket_cors ? var.cors_allowed_origins : []}"
-  expose_headers  = "${local.has_bucket_cors ? var.cors_expose_headers : []}"
-  max_age_seconds = "${local.has_bucket_cors ? var.cors_max_age_seconds : []}"
 }
+
+################################################################
+# s3 bucket WITH enabled CORS (default cors if not sepecified )
+################################################################
 
 resource "aws_s3_bucket" "s3-bucket" {
   bucket        = "${var.bucket_name}"
@@ -23,12 +21,13 @@ resource "aws_s3_bucket" "s3-bucket" {
   acl           = "private"
   force_destroy = "${var.bucket_force_destroy}"
 
-  cors_rule {
-    allowed_headers = "${local.allowed_headers}"
-    allowed_methods = "${local.allowed_methods}"
-    allowed_origins = "${local.allowed_origins}"
-    expose_headers  = "${local.expose_headers}"
-    max_age_seconds = "${local.max_age_seconds}"
+  # added cors to s3 bucket
+  cors_rule = {
+    allowed_headers = "${var.cors_allowed_headers}"
+    allowed_methods = "${var.cors_allowed_methods}"
+    allowed_origins = "${var.cors_allowed_origins}"
+    expose_headers  = "${var.cors_expose_headers}"
+    max_age_seconds = "${var.cors_max_age_seconds}"
   }
 
   # Enable versioning so that files can be replicated
