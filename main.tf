@@ -9,11 +9,11 @@ provider "aws" {
 locals {
   has_bucket_cors = "${length(var.cors_allowed_methods) >= 1 ? true : false }"
 
-  allowed_headers = "${local.has_bucket_cors ? var.cors_allowed_headers : ""}"
-  allowed_methods = "${local.has_bucket_cors ? var.cors_allowed_methods : ""}"
-  allowed_origins = "${local.has_bucket_cors ? var.cors_allowed_origins : ""}"
-  expose_headers  = "${local.has_bucket_cors ? var.cors_expose_headers : ""}"
-  max_age_seconds = "${local.has_bucket_cors ? var.cors_max_age_seconds : ""}"
+  allowed_headers = "${local.has_bucket_cors ? var.cors_allowed_headers : []}"
+  allowed_methods = "${local.has_bucket_cors ? var.cors_allowed_methods : []}"
+  allowed_origins = "${local.has_bucket_cors ? var.cors_allowed_origins : []}"
+  expose_headers  = "${local.has_bucket_cors ? var.cors_expose_headers : []}"
+  max_age_seconds = "${local.has_bucket_cors ? var.cors_max_age_seconds : []}"
 }
 
 resource "aws_s3_bucket" "s3-bucket" {
