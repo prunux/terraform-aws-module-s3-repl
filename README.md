@@ -1,5 +1,5 @@
 # S3 Buckets with Replication for Customers
-This module creates S3 Buckets with Replication, Versioning and Lifecycle for customers.
+This module creates S3 Buckets with Replication, Versioning,  Lifecycle and CORS for customers.
 
 
 ## Minimal Example 
@@ -23,6 +23,8 @@ module "bucket-ap-southeast-1-prod" {
 }
 ```
 
+
+
 ## More Enhanced Example with all arguments
 
 ```terraform
@@ -40,6 +42,11 @@ module "bucket-northeast-1-prod" {
   repl_bucket_force_destroy = false
   access_key                = "${module.common.access_keys[var.customer_account]}"
   secret_key                = "${module.common.secret_keys[var.customer_account]}"
+
+  cors_allowed_headers = ["*"]
+  cors_allowed_methods = ["GET", "POST", "HEAD"]
+  cors_allowed_origins = ["*"]
+  cors_max_age_seconds = 28800
 
   providers = {
     aws.src  = "aws.tokyo"
@@ -68,6 +75,11 @@ All Parmeters:
 * `repl_bucket_force_destroy`: S3 bucket force destroy on destruction
 * `access_key`: Programatic Access to AWS account
 * `secret_key`: Programatic Access to AWS account
+
+* `cors_*`: parameters to set CORS for bucket
+
+* `providers`: used to pass different AWS regions
+
 
 ## Add IAM user for access
 ```terraform
@@ -124,4 +136,18 @@ All create S3 Buckets are using the AWS-KMS encryption
       }
     }
   }
+```
+## CORS
+
+All created S3 Buckets are using this "default" CORS values
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+<CORSRule>
+    <AllowedOrigin>*</AllowedOrigin>
+    <AllowedMethod>GET</AllowedMethod>
+    <AllowedMethod>HEAD</AllowedMethod>
+    <MaxAgeSeconds>3000</MaxAgeSeconds>
+</CORSRule>
+</CORSConfiguration>
 ```

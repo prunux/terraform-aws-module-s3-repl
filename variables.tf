@@ -44,13 +44,13 @@ variable "cors_allowed_headers" {
 variable "cors_allowed_methods" {
   type        = "list"
   description = "AllowedMethods Element: 1-n out of 'GET','PUT','POST','DELETE','HEAD'"
-  default     = []
+  default     = ["GET", "HEAD"]
 }
 
 variable "cors_allowed_origins" {
   type        = "list"
   description = "AllowedOrigin Element (i.e. You can optionally specify * as the origin to enable all the origins to send cross-origin requests)"
-  default     = []
+  default     = ["*"]
 }
 
 variable "cors_expose_headers" {
