@@ -7,7 +7,7 @@ provider "aws" {
 }
 
 locals {
-  has_bucket_cors = "${element(var.cors_allowed_origin,0) ? true : false }"
+  has_bucket_cors = "${length(var.cors_allowed_methods) >= 1 ? true : false }"
 
   allowed_headers = "${local.has_bucket_cors ? var.cors_allowed_headers : ""}"
   allowed_methods = "${local.has_bucket_cors ? var.cors_allowed_methods : ""}"
