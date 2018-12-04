@@ -7,7 +7,7 @@ Create a S3 Bucket in singapore and create a backup replication S3 Bucket in Fra
 
 ```terraform
 module "bucket-ap-southeast-1-prod" {
-  source                   = "git::ssh://git@gitlab.nine.ch/infra/terraform-aws-modules/s3-repl.git?ref=v1.0.4"
+  source                   = "git::ssh://git@gitlab.com/rplessl-terraform-aws-modules/s3-repl.git?ref=v1.0.6"
   bucket_name              = "bucket-ap-southeast-1-prod"
   bucket_region            = "ap-southeast-1"
   repl_bucket_name         = "backup-bucket-ap-southeast-1-prod"
@@ -29,7 +29,7 @@ module "bucket-ap-southeast-1-prod" {
 
 ```terraform
 module "bucket-northeast-1-prod" {
-  source                    = "git::ssh://git@gitlab.nine.ch/infra/terraform-aws-modules/s3-repl.git?ref=v1.0.4"
+  source                    = "git::ssh://git@gitlab.com/rplessl-terraform-aws-modules/s3-repl.git?ref=v1.0.6"
   bucket_name               = "bucket-ap-northeast-1-prod"
   bucket_region             = "ap-northeast-1"
   bucket_storage_class      = "STANDARD"
